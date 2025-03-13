@@ -158,132 +158,7 @@
 
           // Local variable to store the imported array
           let categoryData = [];
-
-if (category) {
-    import('/Clothing/Western/casuals.js')
-        .then((module) => {
-            //  this module is an object of -> key value pairs -> where keys are the  names of  exported and values are the arrays themselves
-            if (module[category]) {
-                categoryData = module[category]; // Store the data in the local variable
-                console.log('Imported Array:', categoryData); // Log the array to the console
-            } else {
-                console.log('Category not found in casuals.js');
-            }
-        })
-        .catch((error) => {
-            console.error('Error loading casuals.js:', error);
-        });
-} else {
-    document.getElementById('category-data').innerText = 'No category specified in the URL.';
-    console.log('No category specified in the URL.');
-}
-
-        let categoryfilter = document.querySelector(".category-filter");
-
-        object.forEach((item) => {
-            let array = item;
-            console.log(array);
-            array.forEach((item) => {
-                if (item == category) {
-                    categoryArray = array
-                }
-            })
-        })
-
-        categoryArray.forEach((item) => {
-            let capitalized = item.charAt(0).toUpperCase() + item.slice(1);
-            categoryfilter.innerHTML += `
-            <label class="flex items-center gap-2">
-                            <input type="radio" id=${item} name="category" class="text-pink-500 focus:ring-pink-500 categoryInput">
-                            <span class="text-gray-600">${capitalized}</span>
-            </label>
-            `
-        })
-
-        let categoryInput = document.querySelectorAll(".categoryInput");
-
-        categoryInput.forEach((item) => {
-            if (item.id == category) {
-                item.checked = true;
-            }
-        })
-
-        categoryInput.forEach((item) => {
-            item.addEventListener('change', (event) => {
-                const id = event.currentTarget.id;
-                let currentUrl = new URL(window.location.href);
-                currentUrl.searchParams.set("category", id);
-                window.location.href = currentUrl;
-            })
-        })
-
-        let filteredprice = 100;
-        document.querySelector("#priceRangeInput").addEventListener('change', (event) => {
-            document.querySelector(".priceRange").innerHTML = `$1 - $${event.target.value}
-        `
-            filteredprice = event.target.value;
-        })
-
-        // Navigation Links:
-        //  window.location is an object -> whose key href returns the current URL in form of string
-        //  URL constructor converts that string into a structured object
-        document.querySelector("#topwearNavigation").addEventListener('click', () => {
-            let currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set("category", "tshirts");
-            window.location.href = currentUrl.toString();
-        })
-
-        document.querySelector("#bottomsNavigation").addEventListener('click', () => {
-            let currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set("category", "shorts");
-            window.location.href = currentUrl.toString();
-
-        })
-        document.querySelector("#dressesNavigation").addEventListener('click', () => {
-            let currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set("category", "jumpsuits");
-            window.location.href = currentUrl.toString();
-        })
-
-        document.querySelector("#jacketsNavigation").addEventListener('click', () => {
-            let currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set("category", "denimjackets");
-            window.location.href = currentUrl.toString();
-        })
-
-      
-
-        let filteredrating = 4;
-        document.querySelectorAll(".ratingInput").forEach((item)=>{
-            item.addEventListener('change', (event)=>{
-                filteredrating = Number(event.target.id);
-
-            })
-
-        })
-
-        function applyFilters() {
-            
-            let product = document.querySelectorAll(".product");
-            product.forEach((item) => {
-                let product_price = (item.querySelector(".price").textContent).replace("$", "");
-                // console.log(product_price);
-                // console.log(filteredprice,"<<--filtered price")
-                let product_rating = item.querySelector(".rating").textContent.replace("(","");
-                product_rating.replace(")", "");
-                // console.log(product_rating)
-                // console.log(filteredrating,"<<--filtered rating")
-                if (Number(product_price) > filteredprice || Number(product_rating)  < filteredrating) {
-                    item.style.display = "none";
-                    console.log(item)
-                } else{
-                    item.style.display = "block";
-                }
-            }) 
-        }
-
-
-        function addAllProducts() {
+          function addAllProducts() {
             console.log("categoryData " ,categoryData)
             console.log("add all products called");
 
@@ -441,10 +316,137 @@ if (category) {
 
         }
         
-        setTimeout(() => {
-            addAllProducts();
 
-        }, 50);
+if (category) {
+    import('/Clothing/Western/casuals.js')
+        .then((module) => {
+            //  this module is an object of -> key value pairs -> where keys are the  names of  exported and values are the arrays themselves
+            if (module[category]) {
+                categoryData = module[category]; // Store the data in the local variable
+                console.log('Imported Array:', categoryData); // Log the array to the console
+                addAllProducts();
+            } else {
+                console.log('Category not found in casuals.js');
+            }
+        })
+        .catch((error) => {
+            console.error('Error loading casuals.js:', error);
+        });
+} else {
+    document.getElementById('category-data').innerText = 'No category specified in the URL.';
+    console.log('No category specified in the URL.');
+}
+
+        let categoryfilter = document.querySelector(".category-filter");
+
+        object.forEach((item) => {
+            let array = item;
+            console.log(array);
+            array.forEach((item) => {
+                if (item == category) {
+                    categoryArray = array
+                }
+            })
+        })
+
+        categoryArray.forEach((item) => {
+            let capitalized = item.charAt(0).toUpperCase() + item.slice(1);
+            categoryfilter.innerHTML += `
+            <label class="flex items-center gap-2">
+                            <input type="radio" id=${item} name="category" class="text-pink-500 focus:ring-pink-500 categoryInput">
+                            <span class="text-gray-600">${capitalized}</span>
+            </label>
+            `
+        })
+
+        let categoryInput = document.querySelectorAll(".categoryInput");
+
+        categoryInput.forEach((item) => {
+            if (item.id == category) {
+                item.checked = true;
+            }
+        })
+
+        categoryInput.forEach((item) => {
+            item.addEventListener('change', (event) => {
+                const id = event.currentTarget.id;
+                let currentUrl = new URL(window.location.href);
+                currentUrl.searchParams.set("category", id);
+                window.location.href = currentUrl;
+            })
+        })
+
+        let filteredprice = 100;
+        document.querySelector("#priceRangeInput").addEventListener('change', (event) => {
+            document.querySelector(".priceRange").innerHTML = `$1 - $${event.target.value}
+        `
+            filteredprice = event.target.value;
+        })
+
+        // Navigation Links:
+        //  window.location is an object -> whose key href returns the current URL in form of string
+        //  URL constructor converts that string into a structured object
+        document.querySelector("#topwearNavigation").addEventListener('click', () => {
+            let currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set("category", "tshirts");
+            window.location.href = currentUrl.toString();
+        })
+
+        document.querySelector("#bottomsNavigation").addEventListener('click', () => {
+            let currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set("category", "shorts");
+            window.location.href = currentUrl.toString();
+
+        })
+        document.querySelector("#dressesNavigation").addEventListener('click', () => {
+            let currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set("category", "jumpsuits");
+            window.location.href = currentUrl.toString();
+        })
+
+        document.querySelector("#jacketsNavigation").addEventListener('click', () => {
+            let currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set("category", "denimjackets");
+            window.location.href = currentUrl.toString();
+        })
+
+      
+
+        let filteredrating = 4;
+        document.querySelectorAll(".ratingInput").forEach((item)=>{
+            item.addEventListener('change', (event)=>{
+                filteredrating = Number(event.target.id);
+
+            })
+
+        })
+
+        function applyFilters() {
+            
+            let product = document.querySelectorAll(".product");
+            product.forEach((item) => {
+                let product_price = (item.querySelector(".price").textContent).replace("$", "");
+                // console.log(product_price);
+                // console.log(filteredprice,"<<--filtered price")
+                let product_rating = item.querySelector(".rating").textContent.replace("(","");
+                product_rating.replace(")", "");
+                // console.log(product_rating)
+                // console.log(filteredrating,"<<--filtered rating")
+                if (Number(product_price) > filteredprice || Number(product_rating)  < filteredrating) {
+                    item.style.display = "none";
+                    console.log(item)
+                } else{
+                    item.style.display = "block";
+                }
+            }) 
+        }
+
+
+      
+        // setTimeout(() => {
+        //     addAllProducts();
+
+        // }, 50);
 
         document.querySelectorAll(".product").forEach((item) => {
             item.addEventListener('click', (event) => {
