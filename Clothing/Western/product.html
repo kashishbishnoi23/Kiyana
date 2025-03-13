@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product details</title>
+    <link rel="stylesheet" href="../../src/output.css">
+
+    <style>
+       
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+    </style>
+</head>
+<body>
+
+  <div class="main p-10 w-full font-poppins">
+    <!-- navbar: -->
+     <hr>        
+    <div class="navbar large:text-3xl  flex flex-col md:flex-row p-3 w-full justify-between  items-center">
+    
+        <div class="font-semibold md:mb-0">KIYANA</div>
+
+        <div class="flex flex-col md:flex-row justify-between  items-center w-[80%] ">
+           
+                <a href="/index.html" class="text-gray-500">Home</a>
+                <a href="/Clothing/Western/casual.html" class="text-gray-500">Clothing</a>
+                <a href="/Accessories/accessories.html" class="text-gray-500">Accessories</a>
+                <a href="/Footwear/footwear.html" class="text-gray-500">Footwear</a>
+                <a href="/cart.html" class="text-gray-500">Cart</a>
+                <a href="/AboutUs.html" class="text-gray-500">About Us</a>
+              
+            
+
+        
+        </div>
+    </div>
+     <hr> 
+    </div>
+
+    <div class="product-details">
+
+    </div>
+
+   
+    
+</body>
+
+<script type="module">
+    import {Clothing} from "../Western/casuals.js"
+    const queryParams = new URLSearchParams(window.location.search);
+    import {addToCart} from "../../cart.js";
+
+    let product_details = document.querySelector(".product-details");
+    
+    // console.log(queryParams.get("id"));
+   const id = queryParams.get("id");
+   console.log(id);
+   let selectedcolor = '';
+    Clothing.forEach((item)=>{
+
+    if (item.id == id){
+      let images = item.images;
+      console.log(item);
+      // console.log(images);
+      let primary_color = item.colors[0];
+      let images_array = images[primary_color];
+      let rating = '';
+      //for (let i = 0; i < item.rating; i++){
+      //  rating += `<img src="./images/star.png" class="h-4" alt="">`
+      //}
+
+      if(item.rating>3 && item.rating<3.5){
+        rating='<img src="./images/three.svg" class="h-4" alt="">'
+      }else if(item.rating>=3.5 && item.rating<4){
+        rating='<img src="./images/threepointfive.svg" class="h-4" alt="">'
+      }else if(item.rating>=4 && item.rating<4.5){
+        rating='<img src="./images/four.svg" class="h-4" alt="">'
+      }else if(item.rating>=4.5 && item.rating<5){
+        rating='<img src="./images/fourpointfive.svg" class="h-4" alt="">'
+      }else{
+        rating='<img src="./images/five.svg" class="h-4" alt="">'
+      }
+
+      let colorsArray = item.colors;
+      selectedcolor = colorsArray[0];
+      let colors = '';
+      colorsArray.forEach((item)=>{
+        const color = item;
+            colors += `
+               <button class="h-6 colorbtn  w-6 p-1 rounded-full border border-gray-600">
+              <div class="h-full w-full rounded-full" data-color="${color}" style="background-color:${color}"></div>
+             </button>
+            `
+      })
+
+      
+
+
+      let featuresList = item.product_details.list;
+
+      let features = '';
+      featuresList.forEach((item)=>{
+          features += `<li>${item}</li>`
+      })
+
+      let material = item.product_details.Material;
+      let pattern = item.product_details.Pattern;
+      let occasion = item.product_details.Occasion;
+      let stretchable = item.product_details.Stretchable;
+      let care = item.product_details.CareInstructions;
+
+      let soldBy = item.vendor_details.soldBy;
+      let countryOfOrigin = item.vendor_details.countryOfOrigin;
+      let packer = item.vendor_details.NameOfManufacturer;
+      let addressOfPacker = item.vendor_details.AddressOfManufacturer;
+
+      
+   
+
+
+
+       product_details.innerHTML += `
+    <div class="w-full  px-32  py-10  product_slide bg-white" id="${item.id}">
+       
+      <div class="w-full  flex items-start  gap-5 ">
+
+      <!-- images -->
+      <div class="h-[100vh] w-[55%]  flex gap-5">
+
+      <div class="h-full w-[75%] rounded-2xl main_img">
+        <img src="${images_array[0]}" class="h-full w-full object-cover rounded-2xl shadow-lg" alt="">
+       
+      </div>
+
+      <div class="h-full w-[25%] flex flex-col justify-between">
+
+        <!-- <img src="" class="h-[30%] w-[20%] " alt=""> -->
+          <div class="h-[20%] w-full  rounded-2xl product_img">
+        <img src="${images_array[1]}" class="h-full w-full object-cover rounded-2xl shadow-sm" alt="">
+          
+         </div>
+         <div class="h-[20%] w-full  rounded-2xl product_img">
+        <img src="${images_array[2]}" class="h-full w-full object-cover rounded-2xl shadow-sm" alt="">
+          
+         </div>
+         <div class="h-[20%] w-full rounded-2xl product_img">
+        <img src="${images_array[3]}" class="h-full w-full object-cover rounded-2xl shadow-sm" alt="">
+
+         </div>
+         <div class="h-[20%] w-full  rounded-2xl product_img">
+        <img src="${images_array[0]}" class="h-full w-full object-cover rounded-2xl shadow-sm" alt="">
+         </div>
+
+      </div>
+
+      <div>
+
+      </div>
+
+      </div>
+
+      <!-- features  -->
+      <div class="h-content gap-5  w-[45%] flex flex-col ">
+        
+        <div class="brand  font-semibold">
+          <img src="${item.brand_logo}" class="h-14" alt="">
+        </div>
+        <div class="name text-xl ">Multi-Colour Printed Oversized T-Shirt</div>
+
+        <!-- rating: -->
+        <div class="flex gap-2  ">
+          ${rating}
+        
+
+        </div>
+
+        <div>(${item.rating})</div>
+
+        <!-- price -->
+         <div class="font-semibold text-xl">
+          $${item.price}
+         </div>
+
+        <div class="colors flex gap-2 items-center">
+          ${colors}
+        </div>
+
+        <!-- Size -->
+        <div class="size flex flex-col gap-2 w-full">
+          <div class="font-semibold">Size</div>
+          <div class="flex gap-3 w-full">
+        
+            <button id="XS" class=" sizebtn border text-sm bg-white border-gray-400 px-3 py-2 rounded-md">XS</button>
+            <button id="S" class=" sizebtn border text-sm bg-white border-gray-400  px-4 py-2 rounded-md">S</button>
+            <button id="M"  class=" sizebtn text-sm border bg-white border-gray-400  px-3 py-2 rounded-md">M</button>
+            <button id="L" class=" sizebtn text-sm border bg-white border-gray-400 px-4 py-2 rounded-md">L</button>
+            <button id="XL" class=" sizebtn text-sm border bg-white border-gray-400  px-3 py-2 rounded-md">XL</button>
+          </div>
+
+        </div>
+
+        <!-- Add to cart -->
+         <div class="w-full flex items-center gap-4 ">
+         <button class="bg-blue-500 text-white px-4  rounded-md py-2"><a href="../../cart.html">Buy now </a></button>
+
+         <div class="flex items-center gap-2 border border-gray-400 rounded-md px-4 py-1 justify-between ">
+          <button id="${item.id}-dec" class="text-xl decrease">-</button>
+          <div class="quantity">1</div>
+          <button id="${item.id}-inc" class="text-xl increase">+</button>
+         </div>
+
+
+
+         <!-- Add to cart -->
+          <button class="addtocartbtn border border-gray-400 px-3 py-2 rounded-md">
+            <svg width="64" height="64" class="h-5 w-5" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M59.8401 17.77C59.442 17.2201 58.9188 16.7728 58.3137 16.465C57.7086 16.1573 57.039 15.9979 56.3601 16H15.8901L14.7701 9.99995C14.6069 9.01073 14.0985 8.11132 13.3351 7.46141C12.5717 6.8115 11.6027 6.45314 10.6001 6.44995H4.6001C4.26858 6.44995 3.95063 6.58165 3.71621 6.81607C3.48179 7.05049 3.3501 7.36843 3.3501 7.69995C3.3501 8.03147 3.48179 8.34941 3.71621 8.58383C3.95063 8.81826 4.26858 8.94995 4.6001 8.94995H10.6001C11.0081 8.95199 11.4027 9.09572 11.7165 9.35657C12.0302 9.61742 12.2436 9.97917 12.3201 10.38L19.2601 48.08C19.3179 48.3631 19.472 48.6175 19.6963 48.7999C19.9206 48.9822 20.2011 49.0812 20.4901 49.08H23.3001C22.8378 49.7931 22.5481 50.6042 22.4539 51.4488C22.3597 52.2935 22.4635 53.1485 22.7573 53.946C23.0511 54.7435 23.5266 55.4615 24.1463 56.0432C24.7659 56.6249 25.5125 57.0542 26.327 57.2971C27.1414 57.54 28.0012 57.5897 28.8383 57.4424C29.6753 57.2951 30.4665 56.9548 31.149 56.4485C31.8316 55.9421 32.3868 55.2837 32.7706 54.5254C33.1544 53.7671 33.3563 52.9298 33.3601 52.08C33.3626 51.016 33.0569 49.974 32.4801 49.08H38.0901C37.5548 49.9057 37.2522 50.8606 37.2142 51.844C37.1762 52.8273 37.4041 53.8027 37.8741 54.6674C38.344 55.532 39.0385 56.2539 39.8843 56.7569C40.7301 57.2598 41.696 57.5253 42.6801 57.5253C43.6642 57.5253 44.6301 57.2598 45.4759 56.7569C46.3217 56.2539 47.0162 55.532 47.4861 54.6674C47.9561 53.8027 48.184 52.8273 48.146 51.844C48.108 50.8606 47.8054 49.9057 47.2701 49.08H49.0001C49.3316 49.08 49.6496 48.9483 49.884 48.7138C50.1184 48.4794 50.2501 48.1615 50.2501 47.83C50.2501 47.4984 50.1184 47.1805 49.884 46.9461C49.6496 46.7116 49.3316 46.58 49.0001 46.58H21.5301L20.6301 41.68H50.0901C50.9623 41.6803 51.8135 41.4129 52.5288 40.914C53.2442 40.415 53.7891 39.7085 54.0901 38.8899L60.3601 21.64C60.5874 21 60.6588 20.3151 60.5684 19.642C60.4779 18.969 60.2283 18.3272 59.8401 17.77ZM30.8401 52.08C30.8401 52.6733 30.6642 53.2533 30.3345 53.7467C30.0049 54.24 29.5363 54.6245 28.9881 54.8516C28.44 55.0787 27.8368 55.1381 27.2548 55.0223C26.6729 54.9065 26.1383 54.6208 25.7188 54.2013C25.2992 53.7817 25.0135 53.2472 24.8977 52.6652C24.782 52.0833 24.8414 51.4801 25.0685 50.9319C25.2955 50.3837 25.68 49.9152 26.1734 49.5855C26.6667 49.2559 27.2468 49.08 27.8401 49.08C28.2357 49.0773 28.628 49.153 28.9943 49.3025C29.3606 49.4521 29.6937 49.6727 29.9744 49.9515C30.2551 50.2304 30.4778 50.562 30.6298 50.9273C30.7819 51.2925 30.8601 51.6843 30.8601 52.08H30.8401ZM45.6301 52.08C45.6301 52.6733 45.4542 53.2533 45.1245 53.7467C44.7949 54.24 44.3263 54.6245 43.7781 54.8516C43.23 55.0787 42.6268 55.1381 42.0448 55.0223C41.4629 54.9065 40.9283 54.6208 40.5088 54.2013C40.0892 53.7817 39.8035 53.2472 39.6877 52.6652C39.572 52.0833 39.6314 51.4801 39.8585 50.9319C40.0855 50.3837 40.47 49.9152 40.9634 49.5855C41.4567 49.2559 42.0368 49.08 42.6301 49.08C43.0257 49.0773 43.418 49.153 43.7843 49.3025C44.1506 49.4521 44.4837 49.6727 44.7644 49.9515C45.0451 50.2304 45.2678 50.562 45.4198 50.9273C45.5719 51.2925 45.6501 51.6843 45.6501 52.08H45.6301ZM58.0001 20.81L51.7301 38.0499C51.6073 38.3864 51.3842 38.6771 51.0909 38.8828C50.7976 39.0884 50.4483 39.1991 50.0901 39.2H20.1701L16.3501 18.46H56.3501C56.6307 18.4573 56.9078 18.5233 57.157 18.6523C57.4063 18.7813 57.6202 18.9693 57.7801 19.2C57.945 19.4302 58.0512 19.6971 58.0896 19.9777C58.1279 20.2583 58.0972 20.5439 58.0001 20.81V20.81Z" fill="black"></path>
+              </svg>
+          </button>
+
+          <svg class="hidden done" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg>
+
+
+         </div>
+
+         <!-- Product and Vendor details: -->
+
+         <div class="mt-5">
+          <!-- Product details -->
+        <div>
+        <hr>
+        <div class="text-xl text-gray-600 flex justify-between items-center tracking-wider p-4">
+        <div>Product Details </div>
+     
+       <button class="show-more">
+       <img class="down" src="images/down-arrow.png" class="h-6" alt="">
+       <svg class="h-8 hidden up" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#999999"><path d="M480-545.33 287.33-352.67 240-400l240-240 240 240-47.33 47.33L480-545.33Z"/></svg>
+        </button>
+         </div>
+        <hr>
+
+        <div class="product_details dropdown hidden">
+        <ul class="list-disc  text-gray-500 my-5 flex flex-col gap-1 text-md">
+          ${features}
+        </ul>
+         
+        <div class="flex flex-col  w-full ">
+          <div class="w-full flex justify-between p-3  ">
+          <div>
+          <div class="text-gray-400 text-sm">Material</div>
+          <div class="material  ">${material}</div>
+          </div>
+        
+      
+          <div>
+            <div class="text-gray-400 text-sm">Pattern</div>
+            <div class="pattern">${pattern}</div>
+          </div>
+
+          </div>
+          <hr class="bg-white h-1">
+
+
+          <div class="w-full flex justify-between p-3 ">
+          <div>
+            <div class="text-sm text-gray-400">Occasion</div>
+            <div class="occasion ">${occasion}</div>
+          </div>
+
+          <div>
+            <div class="text-sm text-gray-400">Stretchable</div>
+            <div class="stretchable">${stretchable}</div>
+          </div>
+        
+
+
+       
+          </div>
+          <hr class="bg-white h-1">
+
+          <div class="w-full flex justify-between p-3">
+           <div>
+              <div class="text-sm text-gray-400">Care Instructions</div>
+              <div class="care_instructions text-wrap">${care}</div>
+            </div> 
+
+          
+
+          </div>
+          <hr class="bg-white h-1">
+
+          
+      
+
+
+        </div>
+        </div>
+
+        </div>
+        
+
+        <!-- Vendor details -->
+
+
+        <div>
+          <hr>
+          <div class="text-xl flex justify-between text-gray-600 tracking-wider p-4">
+            <div>Vendor Details</div>
+       <button class="show-more">
+        <img class="down"  src="images/down-arrow.png" class="h-6" alt="">
+             <svg class="h-8 hidden up" xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#999999"><path d="M480-545.33 287.33-352.67 240-400l240-240 240 240-47.33 47.33L480-545.33Z"/></svg>
+         </button>
+         </div>
+
+          <hr>
+          <div class="vendor_details dropdown flex flex-col hidden">
+          <div class="p-3 flex flex-col gap-1">
+            <div class="text-gray-400 text-sm">Sold by</div>
+            <div class="soldBy"> ${soldBy}</div>
+          </div>
+
+          <hr>
+          <div class="p-3 flex flex-col gap-1">
+            <div class="text-gray-400 text-sm">Country of origin</div>
+            <div class="country_of_origin">${countryOfOrigin}</div>
+          </div>
+          <hr>
+
+          
+          <div class="p-3 flex flex-col gap-1">
+            <div class="text-gray-400 text-sm">Name of Manufacturer/ Packer/ Importer</div>
+            <div class="packer">${packer}</div>
+          </div>
+
+            <hr>
+          <div class="p-3 flex flex-col gap-1">
+            <div class="text-gray-400 text-sm">Address of Manufacturer/ Packer/ Importer</div>
+            <div class="address_of_packer">${addressOfPacker}</div>
+          </div>
+
+          <hr>
+
+          </div>
+
+        </div>
+
+        </div>
+
+
+
+      </div>
+
+      </div>
+
+        <!-- Know your product: -->
+
+        
+        
+        <div class=" pb-14 pt-20">
+          <div class="quote text-4xl text-center flex flex-col tracking-wide ">
+            <div>
+            Exceptional Goods are </div>
+            <div>
+             what make this Story Great
+             </div>
+          </div>
+
+          <!-- images: -->
+          <div class="w-full h-[60vh] flex justify-between py-5">
+            <div class="h-full w-[60%] ">
+            <img src="${images_array[3]}" class="h-full w-full object-cover rounded-2xl shadow-lg" alt="">
+            </div>
+            <div class="h-full w-[35%]">
+              <img src="${images_array[2]}" class="h-full w-full object-cover rounded-2xl shadow-lg" alt="">
+            </div>
+
+          </div>
+
+          <!-- text: -->
+           <div class="text-2xl text-center px-24 py-5 tracking-wide text-gray-600 ">
+            ${item.KnowYourProduct.text}
+           </div>
+        </div>
+        <hr>
+
+        <!-- What our customers say -->
+         <div class="w-full py-10">
+          <div class="text-2xl text-center tracking-wide font-semibold">What Our Customers Say</div>
+
+          <div class="flex items-center w-full justify-between py-10">
+            <div class="flex flex-col w-[25vw] shadow-md h-content p-6 gap-4  rounded-xl">
+              <div class="flex justify-between w-full">
+              <div class="flex items-center gap-3">
+              <div class="h-10 w-10 rounded-full bg-gray-300"></div>
+              <div class="flex flex-col">
+              <div class="font-semibold">Apalmil</div>
+              <div class="text-xs text-gray-500">02 February</div>
+              </div>
+              </div>
+  
+              <div class="flex items-center">
+              <img src="images/star.png" class="h-4" alt="">
+              <img src="images/star.png" class="h-4" alt="">
+              <img src="images/star.png" class="h-4" alt="">
+              <img src="images/star.png" class="h-4" alt="">                        
+              </div>
+  
+              
+          </div>
+  
+          <div class="flex flex-col w-full gap-3">
+              <div class="font-semibold text-lg">A Cut Above the Rest</div>
+              <div class="text-left pr-6">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta explicabo minima exercitationem aspernatur eos, cumque iure, amet repellat animi 
+              </div>
+          </div>
+       </div>
+
+       <div class="flex flex-col w-[25vw] shadow-md h-content p-6 gap-4  rounded-xl">
+        <div class="flex justify-between w-full">
+        <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-full bg-gray-300"></div>
+        <div class="flex flex-col">
+        <div class="font-semibold">Apalmil</div>
+        <div class="text-xs text-gray-500">02 February</div>
+        </div>
+        </div>
+
+        <div class="flex items-center">
+        <img src="images/star.png" class="h-4" alt="">
+        <img src="images/star.png" class="h-4" alt="">
+        <img src="images/star.png" class="h-4" alt="">
+        <img src="images/star.png" class="h-4" alt="">                        
+        </div>
+
+        
+    </div>
+
+    <div class="flex flex-col w-full gap-3">
+        <div class="font-semibold text-lg">A Cut Above the Rest</div>
+        <div class="text-left pr-6">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta explicabo minima exercitationem aspernatur eos, cumque iure, amet repellat animi 
+        </div>
+    </div>
+ </div>
+
+ <div class="flex flex-col w-[25vw] shadow-md h-content p-6 gap-4  rounded-xl">
+  <div class="flex justify-between w-full">
+  <div class="flex items-center gap-3">
+  <div class="h-10 w-10 rounded-full bg-gray-300"></div>
+  <div class="flex flex-col">
+  <div class="font-semibold">Apalmil</div>
+  <div class="text-xs text-gray-500">02 February</div>
+  </div>
+  </div>
+
+  <div class="flex items-center">
+  <img src="images/star.png" class="h-4" alt="">
+  <img src="images/star.png" class="h-4" alt="">
+  <img src="images/star.png" class="h-4" alt="">
+  <img src="images/star.png" class="h-4" alt="">                        
+  </div>
+
+  
+</div>
+
+<div class="flex flex-col w-full gap-3">
+  <div class="font-semibold text-lg">A Cut Above the Rest</div>
+  <div class="text-left pr-6">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta explicabo minima exercitationem aspernatur eos, cumque iure, amet repellat animi 
+  </div>
+</div>
+</div>
+          </div>
+
+         </div>
+
+
+    </div>
+
+       `
+   
+                     //  pick color:
+ let colorbtns = document.querySelectorAll(".colorbtn");
+
+colorbtns.forEach((btn)=>{
+btn.addEventListener('click', (event)=>{
+const color = event.currentTarget.children[0].getAttribute('data-color');
+selectedcolor = color;
+//  console.log("c = ", color);
+ const product_images = event.currentTarget.parentElement.parentElement.previousElementSibling.querySelectorAll(".product_img");
+ const id = event.currentTarget.parentElement.parentElement.parentElement.parentElement.id;
+//  console.log("ID = ",item);
+ Clothing.forEach((item)=>{
+  if (item.id == id){
+    images_array = item.images[color];
+  }
+ })
+ images_array = images[color];
+//  console.log(images);
+//  let index = 0;
+event.currentTarget.parentElement.parentElement.previousElementSibling.querySelector(".main_img").querySelector("img").setAttribute('src', images_array[0]);
+// console.log(product_images[0]);
+
+ product_images.forEach((item, index)=>{
+  item.querySelector("img").setAttribute('src', images_array[index]);
+ })
+
+})
+
+
+
+  })
+
+  
+
+      }
+
+
+  })
+  
+
+
+  
+
+
+    
+
+
+
+// show more functionality:
+let show_more_btns = Array.from(document.querySelectorAll(".show-more"));
+// console.log(show_more_btns);
+
+show_more_btns.forEach((item)=>{
+  item.addEventListener('click', (event)=>{
+    // console.log(event.currentTarget)
+    event.currentTarget.querySelector(".up").classList.toggle('hidden');
+    event.currentTarget.querySelector(".down").classList.toggle('hidden');
+    
+    // get the closest div with class dropdown:
+    const dropdown = event.currentTarget.parentElement.parentElement.querySelector(".dropdown")
+
+    // const dropdown = event.currentTarget.parentElement.querySelector(".dropdown");
+    // console.log(dropdown);
+    dropdown.classList.toggle('hidden');
+  })
+
+})
+
+let product_images = document.querySelectorAll(".product_img");
+
+product_images.forEach((img)=>{
+  img.addEventListener('click', (event)=>{
+      const main_img = event.target.parentElement.parentElement.previousElementSibling;
+      main_img.querySelector("img").setAttribute('src', event.target.src)
+  })
+})
+  
+
+
+
+
+    //  change the color of size buttons:
+    let size = "XS";
+
+    const sizebtns = document.querySelectorAll(".sizebtn");
+    console.log("sizebtn = ", sizebtns);
+    let selected = "XS";
+    Array.from(sizebtns).forEach((item)=>{
+      console.log(item);
+      if (item.id == "XS"){
+        console.log(item.id);
+        item.classList.remove('bg-white');
+        item.classList.add('bg-black');
+        item.classList.add('text-white');
+
+      }
+    })
+    sizebtns.forEach((item)=>{
+      item.addEventListener('click', (event)=>{
+        selected = event.target.id;
+
+        sizebtns.forEach((item)=>{
+          if (item.id == selected){
+            item.classList.remove('bg-white');
+            item.classList.add('bg-black');
+            item.classList.add('text-white');
+            size = selected;
+
+          } else{
+            item.classList.add('bg-white');
+            item.classList.remove('bg-black');
+            item.classList.remove('text-white');
+          }
+
+        })
+
+      })
+
+    })
+
+    
+    
+    // change the quantity:
+    let quantity = 1;
+
+    document.querySelector(".decrease").addEventListener('click', (event)=>{
+      if (quantity > 1){
+        quantity --;
+      }
+
+      event.currentTarget.nextElementSibling.innerHTML = quantity;
+
+      
+    })
+
+    document.querySelector(".increase").addEventListener('click', (event)=>{
+      quantity ++;
+      event.currentTarget.previousElementSibling.innerHTML = quantity;
+    })
+
+
+    // add to cart button change
+
+    let addtocartbtn = document.querySelectorAll(".addtocartbtn");
+    addtocartbtn.forEach((item)=>{
+       item.addEventListener('click', ( event)=>{
+        event.currentTarget.classList.add("hidden");
+        event.currentTarget.nextElementSibling.classList.remove("hidden");
+        console.log("hi");
+        
+        // if (quantity && size){
+          console.log("pink");
+          addToCart(id, quantity, selectedcolor, size);
+        // }
+       })
+      })
+  
+
+
+  // display the image in main container:
+
+
+
+
+
+</script>
+</html>

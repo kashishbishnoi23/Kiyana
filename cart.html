@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Layout</title>
+    <link rel="stylesheet" href="./src/output.css">
+</head>
+
+<body class="bg-gray-50">
+    <div class="w-full py-20">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <h1 class="text-5xl font-bold text-center text-gray-800 mb-3">Shopping Cart</h1>
+            <p class="text-center text-gray-600 mb-12 text-lg">Your selected fashion items</p>
+            
+            <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+                <div class="flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span class="text-2xl font-semibold text-gray-700">Your Shopping Bag</span>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <button class="px-8 py-3 bg-white text-pink-500 rounded-full shadow-md hover:shadow-lg transition duration-300 font-medium">
+                        <a href="/index.html">Continue Shopping </a>
+                    </button>
+                    <button class="px-8 py-3 bg-pink-500 text-white rounded-full shadow-md hover:shadow-lg transition duration-300 font-medium hover:bg-pink-600">
+                       <a href="/checkout.html">Checkout </a>
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-xl p-8">
+                <!-- Cart Header -->
+                <div class="flex justify-between border-b pb-6 text-gray-600 font-medium">
+                    <div class="w-1/2 pl-4">Product Details</div>
+                    <div class="w-1/6 text-center">Price</div>
+                    <div class="w-1/6 text-center">Quantity</div>
+                    <div class="w-1/6 text-center">Total</div>
+                    <div class="w-1/12"></div>
+                </div>
+
+                <!-- Cart Items Container -->
+                <div class="cart-container" id="CartContainer" class="mt-6 space-y-6">
+                    <!-- Example of a cart item structure (will be dynamically populated) -->
+                    <div class="flex items-center justify-between border-b pb-6 hover:bg-gray-50 p-4 rounded-lg transition duration-300">
+                        <!-- Product Details Section -->
+                        <div class="w-1/2 flex gap-6">
+                            <!-- Product Image -->
+                            <div class="w-32 h-32 rounded-lg overflow-hidden shadow-md">
+                                <img src="" alt="Product" class="w-full h-full object-cover">
+                            </div>
+                            <!-- Product Info -->
+                            <div class="flex flex-col justify-between py-2">
+                                <div class="space-y-2">
+                                    <h3 class="font-semibold text-gray-800 text-lg brand-name">Brand Name</h3>
+                                    <p class="text-gray-600 product-name text-base">Product Name</p>
+                                </div>
+                                <div class="flex gap-6 text-sm text-gray-500">
+                                    <span class="product-size flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6h12M6 12h12m-6 6h6" />
+                                        </svg>
+                                        Size: M
+                                    </span>
+                                    <span class="product-color flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                                        </svg>
+                                        Color: Black
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="w-1/6 text-center">
+                            <span class="product-price text-lg font-medium">$0</span>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="w-1/6">
+                            <div class="flex items-center justify-center gap-3">
+                                <button class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                                    </svg>
+                                </button>
+                                <input type="number" class="w-14 h-9 text-center border rounded-lg product-quantity focus:outline-none focus:ring-2 focus:ring-pink-500" value="1" min="1">
+                                <button class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Total -->
+                        <div class="w-1/6 text-center">
+                            <span class="product-total text-lg font-semibold text-gray-800">$0</span>
+                        </div>
+
+                        <!-- Remove Button -->
+                        <div class="w-1/12 text-center">
+                            <button class="text-gray-400 hover:text-red-500 transition duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="mt-10 border-t pt-8">
+                    <div class="flex justify-between items-center max-w-3xl ml-auto">
+                        <div class="text-gray-600">
+                            <span class="text-xl font-medium">Subtotal:</span>
+                            <span class="text-sm ml-2">(excluding delivery)</span>
+                        </div>
+                        <div class="text-3xl subtotal font-bold text-gray-800" id="cartTotal">$0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="module">
+    import { updateCart } from "./cart.js"
+    // localStorage.setItem('cart', JSON.stringify([]));
+
+    export function loadCart() {
+        let CartContainer = document.querySelector(".cart-container");
+
+        let cart = JSON.parse(localStorage.getItem('cart'));
+
+
+        CartContainer.innerHTML = '';
+        cart.forEach((item) => {
+            console.log("item = ", item);
+            CartContainer.innerHTML += `
+              <div id="CartContainer" class="mt-6 space-y-6">
+                    <!-- Example of a cart item structure (will be dynamically populated) -->
+                    <div class="flex items-center justify-between border-b pb-6 hover:bg-gray-50 p-4 rounded-lg transition duration-300">
+                        <!-- Product Details Section -->
+                        <div class="w-1/2 flex gap-6">
+                            <!-- Product Image -->
+                            <div class="w-32 h-32 rounded-lg overflow-hidden shadow-md">
+                                <img src="${item.image[0]}" alt="Product" class="w-full h-full object-cover object-top">
+                            </div>
+                            <!-- Product Info -->
+                            <div class="flex flex-col justify-between py-2">
+                                <div class="space-y-2">
+                                    <h3 class="font-semibold text-gray-800 text-lg brand-name">${item.brand}</h3>
+                                    <p class="text-gray-600 product-name text-base">${item.product}</p>
+                                </div>
+                                <div class="flex gap-6 text-sm text-gray-500">
+                                    <span class="product-size flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6h12M6 12h12m-6 6h6" />
+                                        </svg>
+                                        Size: ${item.size}
+                                    </span>
+                                    <span class="product-color flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                                        </svg>
+                                        Color:  
+                                        <div class="h-3 w-3  shadow-sm rounded-full" style="background-color:${item.color}">
+             
+                </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="w-1/6 text-center">
+                            <span class="product-price text-lg font-medium">$${item.price}</span>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="w-1/6">
+                            <div class="flex items-center justify-center gap-3">
+                                <label for="${item.id}-dec">
+                                <button id="${item.id}-dec" class="decrease w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                                    </svg>
+                                </button>
+                                </label>
+                                <div class="quantity">${item.quantity}</div>
+                                <label for="${item.id}-inc">
+                                <button id="${item.id}-inc" class="increase w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                    </svg>
+                                </button>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Total -->
+                        <div class="w-1/6 text-center">
+                            <span class="product-total text-lg font-semibold text-gray-800">$${item.total}</span>
+                        </div>
+
+                        <!-- Remove Button -->
+                        <div class="w-1/12 text-center">
+                            <button id="deletebtn-${item.id}" class="deletebtn text-gray-400 hover:text-red-500 transition duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        `
+
+        })
+    
+    
+        //  change the quantity and the total price:
+        let increase = document.querySelectorAll(".increase");
+
+        increase.forEach((item) => {
+            item.addEventListener('click', (event) => {
+                const id = event.currentTarget.id;
+                const product_id = id.replace("-inc", "");
+                console.log("increasing");
+                console.log("product_id = ", product_id);
+                updateCart(product_id, "increaseQuantity");
+                loadCart();
+            })
+        })
+
+
+        let decrease = document.querySelectorAll(".decrease");
+        decrease.forEach((item) => {
+            item.addEventListener('click', (event) => {
+                const id = event.currentTarget.id;
+                const product_id = id.replace("-dec", "");
+
+                updateCart(product_id, "decreaseQuantity");
+                loadCart();
+            })
+        })
+        
+
+
+        // delete the item:
+        let deletebtns = document.querySelectorAll(".deletebtn");
+        console.log(deletebtns);
+        deletebtns.forEach((item)=>{
+            console.log("item = ", item);
+            item.addEventListener('click', (event)=>{
+                const id = event.currentTarget.id;
+                console.log(event.target.id);
+                const product_id = id.replace("deletebtn-", "");
+                console.log("id = " , product_id);
+                updateCart(product_id, "delete");
+                loadCart();
+            
+
+            })
+
+        })
+
+       let total = 0;
+       
+       cart = JSON.parse(localStorage.getItem('cart'));
+       console.log(cart);
+       total = cart.reduce((acc, currentval)=>{
+        return acc + currentval.total;  
+       }, 0 )
+       console.log("total = ", total);
+
+       localStorage.setItem('total', JSON.stringify(total));
+        //  change the subtotal:
+        document.querySelector(".subtotal").innerHTML = `$ ${total}`
+
+
+        
+
+    }
+
+    loadCart();
+
+
+
+
+
+
+
+</script>
+
+</html>
+
+
+<!-- <div class="flex flex-col h-content w-full shadow-md">
+            <div class="w-full py-5 h-[35vh] flex items-center justify-around">
+              <div class="h-full p-4 w-[20%] bg-cover" style="background-image:url(${(item.image)[0]})">
+
+              </div>
+
+              <div class="flex flex-col self-start gap-2 text-md">
+                <div>${item.brand}</div>
+                <div>${item.product}</div>
+                <div class="h-3 w-3  shadow-sm rounded-full" style="background-color:${item.color}">
+             
+                </div>
+                <div>${item.size}</div>
+              </div>
+
+              <div class="flex flex-col self-start gap-2 text-md">
+                <div class="font-semibold">Each</div>
+                <div>${item.price}</div>
+
+              </div>
+
+              <div class="flex flex-col self-start gap-2 text-md">
+                <div class="font-semibold">
+                    Quantity
+                </div>
+
+                <div class="flex items-center gap-2 border border-gray-400 rounded-md px-4 py-1 justify-between ">
+                    <label for="${item.id}-dec">
+                    <button id="${item.id}-dec" class="text-xl decrease">-</button>
+                    </label>
+                    <div class="quantity">${item.quantity}</div>
+                    <label for="${item.id}-inc">
+                    <button id="${item.id}-inc" class="text-xl increase">+</button>
+                    </label>
+                </div>
+
+                </div>
+
+                <div class="total flex flex-col self-start gap-2 text-md">
+                    <div class="font-semibold">
+                       Total
+                    </div>
+
+                    <div>
+                        ${item.total}
+                    </div>
+
+                </div>
+
+              <button id="deletebtn-${item.id}" class="deletebtn self-end flex text-red-500 p-2 justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+  <path fill-rule="evenodd" d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z" clip-rule="evenodd" />
+</svg>
+
+
+            </button>
+
+    </div> -->
