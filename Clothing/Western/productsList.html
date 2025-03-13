@@ -69,6 +69,7 @@
             <div class="bg-white rounded-lg shadow-md p-6">
                 <!-- Price Filter -->
                 <div class="mb-6">
+                
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Price Range</h3>
                     <div class="space-y-2">
                         <div class="flex items-center justify-between">
@@ -284,6 +285,7 @@ if (category) {
 
         function addAllProducts() {
             console.log(categoryData)
+            console.log("add all products called");
 
             categoryData.forEach((item) => {
                 let images = item.images;
@@ -308,7 +310,7 @@ if (category) {
 
                 console.log(products);
                 products.innerHTML += `
-                <h2>${category}</h2>
+            
         
         <div class="max-h-[53vh] w-[30%] t-shirts product rounded-lg flex flex-col gap-1  shadow-lg" id="${item.id}">
 
@@ -438,7 +440,7 @@ if (category) {
 
 
         }
-
+        
         setTimeout(() => {
             addAllProducts();
 
