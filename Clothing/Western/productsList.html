@@ -159,7 +159,7 @@
           let categoryData = [];
 
 if (category) {
-    import('../Western/casuals.js')
+    import('/Clothing/Western/casuals.js')
         .then((module) => {
             //  this module is an object of -> key value pairs -> where keys are the  names of  exported and values are the arrays themselves
             if (module[category]) {
@@ -308,6 +308,7 @@ if (category) {
 
                 console.log(products);
                 products.innerHTML += `
+                <h2>${category}</h2>
         
         <div class="max-h-[53vh] w-[30%] t-shirts product rounded-lg flex flex-col gap-1  shadow-lg" id="${item.id}">
 
@@ -327,6 +328,7 @@ if (category) {
             
              
             <div class="rating text-sm "> (${rating}) </div>
+        
         
              </div>
              
