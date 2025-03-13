@@ -378,6 +378,7 @@ if (category) {
             if (module[category]) {
                 categoryData = module[category]; // Store the data in the local variable
                 console.log('Imported Array:', categoryData); // Log the array to the console
+                addAllProducts();
             } else {
                 console.log('Category not found in casuals.js');
             }
@@ -656,10 +657,7 @@ if (category) {
 
         }
 
-        setTimeout(() => {
-            addAllProducts();
-
-        }, 50);
+       
 
         document.querySelectorAll(".product").forEach((item) => {
             item.addEventListener('click', (event) => {
